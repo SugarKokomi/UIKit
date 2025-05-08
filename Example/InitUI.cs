@@ -9,6 +9,33 @@ public class InitUI : MonoBehaviour
     {
         UIKit.SetAssetLoader(new UIAssetLoader());
     }
+    void Start()
+    {
+        //这里姑且通过链式调用进行连续打开面板，写法不太规范，但意思是这个意思
+        UIKit.OpenPanel<PanelTest1>(new PanelTestData()
+        {
+            text = "这是1号测试面板，从指定位置加载（Resources）",
+            delayShowCloseButton = 2f
+        }).onClose.Register(() =>
+        {
+            UIKit.OpenPanel("2号测试面板").onClose.Register(() =>
+            {
+                UIKit.OpenPanel("2号测试面板", new PanelTestData()
+                {
+                    text = "这是2号测试面板第二次打开，从场景中加载，并且进行了数据处理。",
+                    delayShowCloseButton = 2f
+                }).onClose.Register(Exit);
+            });
+        });
+    }
+    static void Exit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
+    }
 }
 public class UIAssetLoader : UI.IAssetLoader
 {

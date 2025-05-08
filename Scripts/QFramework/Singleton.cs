@@ -15,7 +15,11 @@ namespace UI
             {
                 lock (mLock)
                 {
-                    mInstance ??= new T();
+                    if (mInstance == null)
+                    {
+                        mInstance ??= new T();
+                        (mInstance as Singleton<T>).OnSingletonInit();
+                    }
                 }
 
                 return mInstance;

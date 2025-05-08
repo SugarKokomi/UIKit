@@ -25,8 +25,11 @@ namespace UI
             }
             set
             {
-                if (value != null)
-                    assetLoader ??= value;
+                if (value != null && assetLoader == null)
+                {
+                    assetLoader = value;
+                    Debug.Log("UI资源加载器设置成功！");
+                }
                 else if (assetLoader == null)
                     throw new Exception("需提供资源加载器");
                 else Debug.LogWarning("不可重复设置资源加载器");
@@ -58,7 +61,7 @@ namespace UI
         {
             if (!panelPrefabs.TryGetValue(panelName, out var uiPanelGO) || !uiPanelGO)//如果没有缓存Prefab，或者存储的Prefab是null
             {
-                uiPanelGO = assetLoader.Load(@$"UIPrefab/{panelName}");
+                uiPanelGO = assetLoader.Load(panelName);
                 AddOrSetValue(panelPrefabs, panelName, uiPanelGO);
             }
             if (!uiPanelGO)//如果还是没有加载到，再尝试加载一个隐藏在UIRoot之下的，未编入资源预制体的UI
@@ -70,6 +73,7 @@ namespace UI
                     {
                         uiPanelGO = panel_.gameObject;
                         AddOrSetValue(panelPrefabs, panelName, uiPanelGO);
+                        break;
                     }
                 }
             }

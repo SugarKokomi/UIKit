@@ -39,14 +39,14 @@ namespace UI
 #if ODIN_INSPECTOR
         [ValueDropdown("GetUIPrefabNames")]
 #endif
-        [LabelText("预制体缓存白名单"), SerializeField]
-        [Tooltip("UI预制体缓存白名单。每次切换场景(或者自行时机执行)会尝试清理释放一次资源。添加进去后不会清除对应的预制体缓存")]
-        internal List<string> whiteList;
+        [LabelText("预制体缓存白名单")]
+        [Tooltip("UI预制体缓存白名单。自行时机执行会尝试清理释放一次资源。添加进去后不会清除对应的预制体缓存")]
+        public List<string> whiteList;
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            UIKit.ClearUIPrefabInCache();
             m_layerCache.Clear();
+            // UIKit.ClearUIPrefabInCache();
         }
 #if UNITY_EDITOR && ODIN_INSPECTOR
         IEnumerable<string> GetUIPrefabNames() => UIManager.Instance.AssetLoader.GetAllUIPrefabName();
