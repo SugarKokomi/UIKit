@@ -37,7 +37,7 @@ public class InitUI : MonoBehaviour
 #endif
     }
 }
-public class UIAssetLoader : UI.IAssetLoader
+public class UIAssetLoader : UI.IUIPrefabLoader
 {
     public GameObject Load(string prefabName)
     {

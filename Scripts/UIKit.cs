@@ -11,7 +11,7 @@ namespace UI
 {
     public static class UIKit
     {
-        public static void SetAssetLoader(IAssetLoader assetLoader) => UIManager.Instance.AssetLoader = assetLoader;
+        public static void SetAssetLoader(IUIPrefabLoader assetLoader) => UIManager.Instance.AssetLoader = assetLoader;
         public static void ClearUIPrefabInCache() => UIManager.Instance.ClearUIPrefabInCache(UIRoot.Instance.whiteList);
 
         public static EasyEvent<PanelBase> onOpenPanel => UIManager.Instance.onOpenPanel;

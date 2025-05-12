@@ -13,26 +13,22 @@ namespace UI
 {
     internal sealed class UIManager : Singleton<UIManager>
     {
-        private IAssetLoader assetLoader;
-        public IAssetLoader AssetLoader
+        private IUIPrefabLoader assetLoader;
+        public IUIPrefabLoader AssetLoader
         {
             get
             {
-                if (assetLoader != null)
-                    return assetLoader;
-                else throw new Exception("需提供资源加载器");
-
+                assetLoader ??= new DefaultUIPrefabLoader();
+                return assetLoader;
             }
             set
             {
-                if (value != null && assetLoader == null)
+                if (value != null)
                 {
                     assetLoader = value;
                     Debug.Log("UI资源加载器设置成功！");
                 }
-                else if (assetLoader == null)
-                    throw new Exception("需提供资源加载器");
-                else Debug.LogWarning("不可重复设置资源加载器");
+                else Debug.LogWarning("不可设置空的资源加载器");
             }
         }
         public EasyEvent<PanelBase> onOpenPanel, onClosePanel;
