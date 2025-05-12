@@ -2,10 +2,6 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-#if ODIN_INSPECTOR
-using System.Collections.Generic;
-#endif
-
 namespace UI
 {
     public interface IUIPrefabLoader
