@@ -45,7 +45,7 @@ namespace UI
         protected override void OnDestroy()
         {
             base.OnDestroy();
-            m_layerCache.Clear();
+            m_layerCache?.Clear();
             // UIKit.ClearUIPrefabInCache();
         }
 #if UNITY_EDITOR && ODIN_INSPECTOR
