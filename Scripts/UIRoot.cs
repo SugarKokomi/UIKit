@@ -33,8 +33,8 @@ namespace UI
             base.OnSingletonInit();
             m_layerCache = new Dictionary<UILayer, Transform>();
 
-            DontDestroyOnLoad(gameObject);
-            DontDestroyOnLoad(uiCamera.gameObject);
+            // DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(uiCamera.gameObject);
         }
 #if ODIN_INSPECTOR
         [ValueDropdown("GetUIPrefabNames")]
