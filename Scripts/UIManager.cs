@@ -57,7 +57,7 @@ namespace UI
         {
             if (!panelPrefabs.TryGetValue(panelName, out var uiPanelGO) || !uiPanelGO)//如果没有缓存Prefab，或者存储的Prefab是null
             {
-                uiPanelGO = assetLoader.Load(panelName);
+                uiPanelGO = AssetLoader.Load(panelName);
                 AddOrSetValue(panelPrefabs, panelName, uiPanelGO);
             }
             if (!uiPanelGO)//如果还是没有加载到，再尝试加载一个隐藏在UIRoot之下的，未编入资源预制体的UI
@@ -180,7 +180,7 @@ namespace UI
         }
         #endregion
 
-        #region  GetPanel/GetPanels 获取一个类型的UI、一个类型的所有UI
+        #region  GetPanel/GetPanels/TryGetPanel （尝试）获取一个类型的UI、一个类型的所有UI
         /// <summary> 返回最近打开的UIPanel </summary>
         public T GetPanel<T>() where T : PanelBase => GetPanel(typeof(T)) as T;
         public PanelBase GetPanel(Type type) => GetPanel(type.Name);
@@ -215,6 +215,22 @@ namespace UI
                 Debug.LogWarning($"未能查询到> {panelName} <。确保你想要查询的UI存在。");
                 return null;
             }
+        }
+
+        public bool TryGetPanel<T>(out T panel) where T : PanelBase
+        {
+            panel = GetPanel<T>();
+            return panel;
+        }
+        public bool TryGetPanel(Type type, out PanelBase panel)
+        {
+            panel = GetPanel(type);
+            return panel;
+        }
+        public bool TryGetPanel(string panelName, out PanelBase panel)
+        {
+            panel = GetPanel(panelName);
+            return panel;
         }
         #endregion
 
