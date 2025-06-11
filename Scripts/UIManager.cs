@@ -95,7 +95,10 @@ namespace UI
             }
             else
             {
-                blackList = panelPrefabs.Keys.ToHashSet();
+                // blackList = panelPrefabs.Keys.ToHashSet();
+                blackList = new HashSet<string>();
+                foreach (var key in panelPrefabs.Keys)
+                    blackList.Add(key);
             }
             foreach (var uiNameToMove in blackList)
             {
